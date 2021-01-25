@@ -54,59 +54,59 @@ Thing: Car Wash
  */
 
 /*
-Thing 1)
+Thing 1) Drill Machine
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) size of drill chucks
+    2) number of modes
+    3) motor power
+    4) cable length 
+    5) drilling speed
 3 things it can do:
-    1)
-    2)
-    3)
+    1) drill hole
+    2) screw screw
+    3) load the accu
  */
 
 /*
-Thing 2)
+Thing 2) Soda Maker
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) water pressure
+    2) size of container
+    3) volume of soda tank 
+    4) years of guarantee
+    5) number of bottles
 3 things it can do:
-    1)
-    2)
-    3)
+    1) make soda water
+    2) install soda tank
+    3) push the big button
  */
 
 /*
-Thing 3)
+Thing 3) Dish Washer
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) volume of washing room
+    2) number of programs
+    3) duration of duration of the washing process
+    4) amount of detergen tank
+    5) duration of timer
 3 things it can do:
-    1)
-    2)
-    3)
+    1) wash dishes
+    2) dry dishes
+    3) start at timer
  */
 
 /*
-Thing 4)
+Thing 4) Gas Grill
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) size of grill plate
+    2) volume of coal
+    3) number level positions
+    4) heat temperature
+    5) port size of gas tank 
 3 things it can do:
-    1)
-    2)
-    3)
+    1) grill sausage
+    2) light the flame
+    3) turn of the flame
  */
 
 
