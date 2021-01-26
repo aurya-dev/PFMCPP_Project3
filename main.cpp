@@ -110,17 +110,17 @@ Thing 4) Gas Grill
  */
 
 /*
-Thing 10)
+Thing 10) Wireless Headphone
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) Speaker
+    2) Over Ear
+    3) Volume Control
+    4) Connection Button
+    5) Status LED
 3 things it can do:
-    1)
-    2)
-    3)
+    1) Connect to device
+    2) Play audio
+    3) Make a call
  */
 
 /*
