@@ -110,17 +110,17 @@ Thing 4) Gas Grill
  */
 
 /*
-Thing 10) Wireless Headphone
+Thing 10) Drum Machine
 5 properties:
-    1) Speaker
-    2) Over Ear
+    1) Display
+    2) Drumpads
     3) Volume Control
-    4) Connection Button
-    5) Status LED
+    4) Play Button
+    5) Record Button
 3 things it can do:
-    1) Connect to device
-    2) Play audio
-    3) Make a call
+    1) Launch drum samples
+    2) Play pattern
+    3) Record pattern
  */
 
 /*
