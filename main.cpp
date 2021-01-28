@@ -125,73 +125,73 @@ Thing 4) Gas Grill
  */
 
 /*
-Thing 5)
+Thing 5) Display
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) Color Depth
+    2) Pixel width
+    3) Pixel height
+    4) Power consumption
+    5) Brightness
 3 things it can do:
-    1)
-    2)
-    3)
+    1) Display text
+    2) Display image
+    3) Turn backlight off 
  */
 
 /*
-Thing 6)
+Thing 6) Drumpads
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) Number of Pads
+    2) Pad sensitivity
+    3) Width of a Pad
+    4) Height of Pad
+    5) Pad color Brightness 
 3 things it can do:
-    1)
-    2)
-    3)
+    1) Lit pad
+    2) Check hit pressure
+    3) Unlit pad 
  */
 
 /*
-Thing 7)
+Thing 7) Volume Control
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) Knob diameter
+    2) Knob height
+    3) Knob range
+    4) Poti resitance 
+    5) Number of cable connections
 3 things it can do:
-    1)
-    2)
-    3)
+    1) Increase master volume
+    2) Decrease master volume
+    3) Switch off volume
  */
 
 /*
-Thing 8)
+Thing 8) Play Button
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) Button width
+    2) Button height
+    3) Switch depth
+    4) LED Brightness
+    5) Number of cable connections
 3 things it can do:
-    1)
-    2)
-    3)
+    1) Lit green
+    2) Flash green
+    3) Start pattern
  */
 
 /*
-Thing 9)
+Thing 9) Record Button
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) Button width
+    2) Button height
+    3) Switch depth
+    4) LED Brightness
+    5) Number of cable connections
 3 things it can do:
-    1)
-    2)
-    3)
+    1) Lit red
+    2) Flash red
+    3) Record Midi Events
  */
 
 /*
