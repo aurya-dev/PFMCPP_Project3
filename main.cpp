@@ -28,10 +28,14 @@ without errors or warnings before moving on to writing the next UDT.
 
 1) define an empty struct for each of your 10 types. i.e.:
 */
+
+/*
 struct CarWash
 {
 
 };
+*/
+
 /*
 2) Copy your 5 properties & 3 actions into the empty struct body.
     - comment them out.
@@ -129,6 +133,45 @@ Thing 1) Drill Machine
     3) load the accu
  */
 
+struct DrillMaschine 
+{
+    // Size of the drill chucks
+    int sizeOfDrillChucks = 10;
+    // Number of modes
+    int numOfModes = 2;
+    // Motor power
+    int motorPower = 1500;
+    // Cable length
+    float cableLength = 1.5f;
+    // Drilling speed
+    int drillingSpeed = 3000;
+
+    struct DrillBit
+    {
+        int drillChuck = 10;
+        int length = 140;
+        std::string material = "steel";
+        bool isHardened = true;
+        bool isForWood = true;
+
+        void drill(int depth = 10);
+        bool isStuck();
+        bool isToHot();
+
+
+    };
+
+    // Drill hole
+    void drillHole(DrillBit bit);
+    // screw screws 
+    void screwScrew(int speed, bool screwIn);
+    // load the accu
+    void loadAccu();
+
+    DrillBit myDrillBit;
+};
+
+
 /*
 Thing 2) Soda Maker
 5 properties:
@@ -142,6 +185,29 @@ Thing 2) Soda Maker
     2) install soda tank
     3) push the big button
  */
+
+struct SodaMaker
+{
+    // Water pressure
+    int waterPressure = 5;
+    // Size of container
+    int containerSize = 2;
+    // volume of soda tank 
+    int sodaTankVolume = 500;
+    // years of guarantee
+    int guaranteeYears = 2;
+    // number of bottles
+    int numBottles = 1;
+
+    // make soda water
+    void makeSodaWater(int pressButtonDuration);
+    // install soda tank
+    void installSodaTank();
+    // push the big button
+    void pushBigButton();
+};
+
+
 
 /*
 Thing 3) Dish Washer
@@ -157,6 +223,27 @@ Thing 3) Dish Washer
     3) start at timer
  */
 
+ struct DishWasher
+ {
+    // volume of washing room
+    int washingRoomVolume = 5;
+    // number of programs
+    int numOfPrograms = 12;
+    // duration of duration of the washing process
+    int washingDuration = 120;
+    // amount of detergen tank
+    int amountDetergenTank = 200;
+    // duration of timer
+    int timerDuration = 360;
+
+    // wash dishes
+    void washDishes(int programNumber);
+    // dry dishes
+    void dryDishes(int duration, int temperature);
+    // start at timer
+    void startAtTimer(int startMinutesLater);   
+ };
+
 /*
 Thing 4) Gas Grill
 5 properties:
@@ -170,6 +257,29 @@ Thing 4) Gas Grill
     2) light the flame
     3) turn of the flame
  */
+
+struct GasGrill
+{
+    // size of grill plate
+    int grillPlateSize = 50;
+    // volume of coal
+    int volumeOfCoal = 5;
+    // number level positions
+    int numLevelPositions = 3;
+    // heat temperature
+    int heatTemperature = 1000;
+    // port size of gas tank 
+    int gasTankPortSize = 5;
+
+    // grill sausage
+    void grillSausage(int levelPosition);
+    // light the flame
+    void ligthFlame();
+    // turn off the flame
+    void turnOffFlame();
+
+};
+
 
 /*
 Thing 5) Display
@@ -185,6 +295,47 @@ Thing 5) Display
     3) Turn backlight off 
  */
 
+struct Display
+{
+    // Color Depth
+    int colorDepth = 16;
+    // Pixel width
+    int pixelWidth = 1024;
+    // Pixel height
+    int pixelHeight = 768;
+    // Power consumption
+    int powerConsumption = 400;
+    // Brightness
+    int brightness = 5;
+
+    struct DisplayCable
+    {
+        int length = 150;
+        std::string color = "black";
+        std::string type = "LVDS";
+        int version = 2;
+        bool isHighSpeed = true;
+
+        bool isConnected(bool highSpeed = true);
+        bool isNetworkConnected();
+        std::string getResolution();
+
+    };
+
+    // Display text
+    void displayText(DisplayCable myCable);
+    // Display image
+    void displayImage(DisplayCable myCable);
+    // Turn backlight off
+    void turnOffBackligth(); 
+
+    DisplayCable myCable;
+
+};
+
+
+
+
 /*
 Thing 6) Drumpads
 5 properties:
@@ -198,6 +349,27 @@ Thing 6) Drumpads
     2) Check hit pressure
     3) Unlit pad 
  */
+
+ struct Drumpad 
+ {
+    // Number of Pads
+    int numPads = 16;
+    // Pad sensitivity
+    int padSensivity = 127;
+    // Width of a Pad
+    int padWidth = 20;
+    // Height of Pad
+    int padHeight = 20;
+    // Pad color Brightness 
+    int padColorBrightness = 40;
+
+    // Lit pad
+    void litPad();
+    // Check hit pressure
+    void checkHitPreassure();
+    // Unlit pad 
+    void unlitPad();
+ };
 
 /*
 Thing 7) Volume Control
@@ -213,6 +385,27 @@ Thing 7) Volume Control
     3) Switch off volume
  */
 
+ struct VolumeControl 
+ {
+    // Knob diameter
+    int knobDiameter = 10;
+    // Knob height
+    int knobHeight = 20;
+    // Knob range
+    int knobRange = 270;
+    // Poti resitance 
+    int potiResitance = 1200;
+    // Number of cable connections
+    int numCableConnection = 3;
+
+    // Increase master volume
+    void increaseMasterVolume(int newVolume);
+    // Decrease master volume
+    void decreaseMasterVolume(int newVolume);
+    // Switch off volume
+    void switchOffVolume();
+ };
+
 /*
 Thing 8) Play Button
 5 properties:
@@ -226,6 +419,27 @@ Thing 8) Play Button
     2) Flash green
     3) Start pattern
  */
+
+ struct PlayButton 
+ {
+    // Button width
+    int buttonWidth = 10;
+    // Button height
+    int buttonHeight = 5;
+    // Switch depth
+    int switchDepth = 2;
+    // LED Brightness
+    int ledBrightness = 20;
+    // Number of cable connections
+    int numCableConnection = 2;
+
+    // Lit green
+    void litGreen();
+    // Flash green
+    void flashGreen(int pulseSpeed);
+    // Start pattern
+    void startPattern(int patternId);
+ };
 
 /*
 Thing 9) Record Button
@@ -241,6 +455,28 @@ Thing 9) Record Button
     3) Record Midi Events
  */
 
+ struct RecordButton
+ {
+    // Button width
+    int buttonWidth = 10;
+    // Button height
+    int buttonHeight = 5;
+    // Switch depth
+    int switchDepth = 2;
+    // LED Brightness
+    int ledBrightness = 20;
+    // Number of cable connections
+    int numCableConnection = 2; 
+
+    // Lit red
+    void litRed();
+    // Flash red
+    void flashRed(int pulseSpeed);
+    // Record Midi Events
+    void recMidiEvents(int midiPort, int midiChannel);
+
+ };
+
 /*
 Thing 10) Drum Machine
 5 properties:
@@ -254,6 +490,27 @@ Thing 10) Drum Machine
     2) Play pattern
     3) Record pattern
  */
+
+ struct DrumMachine
+ {
+    // Display
+    Display display;
+    // Drumpads
+    Drumpad drumpad;
+    // Volume Control
+    VolumeControl volControl;
+    // Play Button
+    PlayButton playButton;
+    // Record Button
+    RecordButton recButton;
+    
+    // Launch drum samples
+    void playDrumSample(int sampleId);
+    // Play pattern
+    void playPattern(int patternId);
+    // Record pattern
+    void recPattern(int patternLength = 4);
+ };
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
