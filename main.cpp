@@ -139,7 +139,7 @@ struct DrillMaschine
     int sizeOfDrillChucks = 10;
     // Number of modes
     int numOfModes = 2;
-    // Motor power
+    // Motor power 
     int motorPower = 1500;
     // Cable length
     float cableLength = 1.5f;
@@ -148,7 +148,7 @@ struct DrillMaschine
 
     struct DrillBit
     {
-        int drillChuck = 10;
+        float drillChuck = 10.0f;
         int length = 140;
         std::string material = "steel";
         bool isHardened = true;
@@ -161,10 +161,10 @@ struct DrillMaschine
 
     };
 
-    // Drill hole
-    void drillHole(DrillBit bit);
-    // screw screws 
-    void screwScrew(int speed, bool screwIn);
+    // Drill hole (return true if screw process was sucessful)
+    bool drillHole(DrillBit bit);
+    // screw screws (return true if screw process was sucessful)
+    bool screwScrew(int speed, bool screwIn);
     // load the accu
     void loadAccu();
 
@@ -183,17 +183,17 @@ Thing 2) Soda Maker
 3 things it can do:
     1) make soda water
     2) install soda tank
-    3) push the big button
+    3) get name of the manufacturer
  */
 
 struct SodaMaker
 {
     // Water pressure
-    int waterPressure = 5;
+    float waterPressure = 5.0f;
     // Size of container
     int containerSize = 2;
     // volume of soda tank 
-    int sodaTankVolume = 500;
+    float sodaTankVolume = 0.5f;
     // years of guarantee
     int guaranteeYears = 2;
     // number of bottles
@@ -203,8 +203,8 @@ struct SodaMaker
     void makeSodaWater(int pressButtonDuration);
     // install soda tank
     void installSodaTank();
-    // push the big button
-    void pushBigButton();
+    // get name of the manufacturer
+    std::string getManufacturerName();
 };
 
 
@@ -226,20 +226,20 @@ Thing 3) Dish Washer
  struct DishWasher
  {
     // volume of washing room
-    int washingRoomVolume = 5;
+    float washingRoomVolume = 5.2f;
     // number of programs
     int numOfPrograms = 12;
     // duration of duration of the washing process
     int washingDuration = 120;
     // amount of detergen tank
-    int amountDetergenTank = 200;
+    float amountDetergenTank = 0.200f;
     // duration of timer
     int timerDuration = 360;
 
-    // wash dishes
-    void washDishes(int programNumber);
-    // dry dishes
-    void dryDishes(int duration, int temperature);
+    // wash dishes (returns true after the sucessful process)
+    bool washDishes(int programNumber);
+    // dry dishes (returns true after the sucessful process)
+    bool dryDishes(int duration, int temperature);
     // start at timer
     void startAtTimer(int startMinutesLater);   
  };
@@ -261,7 +261,7 @@ Thing 4) Gas Grill
 struct GasGrill
 {
     // size of grill plate
-    int grillPlateSize = 50;
+    double grillPlateSize = 50;
     // volume of coal
     int volumeOfCoal = 5;
     // number level positions
@@ -273,8 +273,8 @@ struct GasGrill
 
     // grill sausage
     void grillSausage(int levelPosition);
-    // light the flame
-    void ligthFlame();
+    // light the flame (returns true if the process was sucessful)
+    bool ligthFlame();
     // turn off the flame
     void turnOffFlame();
 
@@ -304,9 +304,9 @@ struct Display
     // Pixel height
     int pixelHeight = 768;
     // Power consumption
-    int powerConsumption = 400;
-    // Brightness
-    int brightness = 5;
+    float powerConsumption = 0.4f;
+    // get the active Port
+    char activePort = 'd';
 
     struct DisplayCable
     {
@@ -326,8 +326,8 @@ struct Display
     void displayText(DisplayCable myCable);
     // Display image
     void displayImage(DisplayCable myCable);
-    // Turn backlight off
-    void turnOffBackligth(); 
+    // get the active Port
+    char getActivePort(); 
 
     DisplayCable myCable;
 
@@ -347,7 +347,7 @@ Thing 6) Drumpads
 3 things it can do:
     1) Lit pad
     2) Check hit pressure
-    3) Unlit pad 
+    3) Default sound bank  
  */
 
  struct Drumpad 
@@ -355,18 +355,18 @@ Thing 6) Drumpads
     // Number of Pads
     int numPads = 16;
     // Pad sensitivity
-    int padSensivity = 127;
+    double padSensivity = 3453452345345;
     // Width of a Pad
-    int padWidth = 20;
+    float padWidth = 20.5f;
     // Height of Pad
-    int padHeight = 20;
-    // Pad color Brightness 
-    int padColorBrightness = 40;
+    float padHeight = 20.5f;
+    // Default sound bank
+    char defaultSoundBank = 'a';
 
     // Lit pad
     void litPad();
     // Check hit pressure
-    void checkHitPreassure();
+    double checkHitPreassure();
     // Unlit pad 
     void unlitPad();
  };
@@ -382,19 +382,19 @@ Thing 7) Volume Control
 3 things it can do:
     1) Increase master volume
     2) Decrease master volume
-    3) Switch off volume
+    3) returns true if the knob is on max position
  */
 
  struct VolumeControl 
  {
     // Knob diameter
-    int knobDiameter = 10;
+    float knobDiameter = 10.3f;
     // Knob height
-    int knobHeight = 20;
+    float knobHeight = 20.7f;
     // Knob range
     int knobRange = 270;
     // Poti resitance 
-    int potiResitance = 1200;
+    double potiResitance = 12000034523462;
     // Number of cable connections
     int numCableConnection = 3;
 
@@ -402,8 +402,8 @@ Thing 7) Volume Control
     void increaseMasterVolume(int newVolume);
     // Decrease master volume
     void decreaseMasterVolume(int newVolume);
-    // Switch off volume
-    void switchOffVolume();
+    // returns true if the knob is on max position
+    bool isMaxVolume();
  };
 
 /*
@@ -417,17 +417,17 @@ Thing 8) Play Button
 3 things it can do:
     1) Lit green
     2) Flash green
-    3) Start pattern
+    3) get the label of the Button
  */
 
  struct PlayButton 
  {
     // Button width
-    int buttonWidth = 10;
+    float buttonWidth = 10.8f;
     // Button height
-    int buttonHeight = 5;
+    float buttonHeight = 5.2f;
     // Switch depth
-    int switchDepth = 2;
+    float switchDepth = 2.0f;
     // LED Brightness
     int ledBrightness = 20;
     // Number of cable connections
@@ -437,8 +437,8 @@ Thing 8) Play Button
     void litGreen();
     // Flash green
     void flashGreen(int pulseSpeed);
-    // Start pattern
-    void startPattern(int patternId);
+    // get the label of the Button
+    std::string getLabelName();
  };
 
 /*
@@ -450,7 +450,7 @@ Thing 9) Record Button
     4) LED Brightness
     5) Number of cable connections
 3 things it can do:
-    1) Lit red
+    1) Returns true if the button is pressed
     2) Flash red
     3) Record Midi Events
  */
@@ -458,18 +458,18 @@ Thing 9) Record Button
  struct RecordButton
  {
     // Button width
-    int buttonWidth = 10;
+    float buttonWidth = 10.7f;
     // Button height
-    int buttonHeight = 5;
+    float buttonHeight = 5.8f;
     // Switch depth
-    int switchDepth = 2;
+    float switchDepth = 2.0f;
     // LED Brightness
     int ledBrightness = 20;
     // Number of cable connections
     int numCableConnection = 2; 
 
-    // Lit red
-    void litRed();
+    // Returns true if the button is pressed
+    bool isPressed();
     // Flash red
     void flashRed(int pulseSpeed);
     // Record Midi Events
@@ -486,7 +486,7 @@ Thing 10) Drum Machine
     4) Play Button
     5) Record Button
 3 things it can do:
-    1) Launch drum samples
+    1) Returns the name of the pattern
     2) Play pattern
     3) Record pattern
  */
@@ -504,8 +504,8 @@ Thing 10) Drum Machine
     // Record Button
     RecordButton recButton;
     
-    // Launch drum samples
-    void playDrumSample(int sampleId);
+    // Returns the name of the pattern
+    std::string getPatternName (int patternId);
     // Play pattern
     void playPattern(int patternId);
     // Record pattern
