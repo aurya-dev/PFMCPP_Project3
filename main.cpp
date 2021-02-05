@@ -158,20 +158,18 @@ struct DrillMachine
 
 
 void DrillMachine::DrillBit::drill(int depth) {
-    if(depth > length) isStucked = true;
+    isStucked = (depth > length);
 }
 
 
 bool DrillMachine::DrillBit::isDull(float currentTemperature) {
-    if(isToHot(currentTemperature)) return true;
-    else return false;
+    return isToHot(currentTemperature);
 }
 
 
 bool DrillMachine::DrillBit::isToHot(float currentTemperature)
 {
-    if(currentTemperature > maxTemperature) return true;
-    else return false;
+    return currentTemperature > maxTemperature;
 }
 
 
@@ -191,8 +189,10 @@ bool DrillMachine::screwScrew(int speed, bool screwIn)
 {
     if(accuTooWeak == false) 
     {
-        if(screwIn) screwTime = speed * 5;
-        else screwTime = speed * 6;
+        if(screwIn) 
+            screwTime = speed * 5;
+        else 
+            screwTime = speed * 6;
         return true;
     }
     return false;
@@ -238,7 +238,8 @@ void SodaMaker::installSodaTank()
 }
 
 
-std::string SodaMaker::getManufacturerName() {
+std::string SodaMaker::getManufacturerName() 
+{
     return "SodaStream";
 }
 
@@ -264,20 +265,13 @@ std::string SodaMaker::getManufacturerName() {
 
 bool DishWasher::washDishes(int programNumber)
 {
-    if(programNumber > 12) return false;
-    // Wash dishes!
-    return true;
+    return ! (programNumber > 12);
 }
 
 
 bool DishWasher::dryDishes(int duration, float temperature)
 {
-    if(duration <= maxWashingDuration || temperature <= maxWashTemperature) 
-    {
-        // Drying!
-        return true;
-    }
-    return false;
+    return (duration <= maxWashingDuration || temperature <= maxWashTemperature);
 }
 
 
@@ -285,7 +279,7 @@ void DishWasher::startAtTimer(int startMinutesLater)
 {
     waitMilliSec = startMinutesLater * 1000;
     // sleep(startMinutesLater * startMinutesLater);
-    DishWasher::washDishes(1);    
+    washDishes(1);    
 } 
 
 //--------------------------------------------------------
@@ -303,19 +297,19 @@ struct GasGrill
     float currentTemperature = 0.0f;
 
     void grillSausage(int levelPosition);
-    bool ligthFlame();
+    bool lightFlame();
     void turnOffFlame();
 };
 
 
 void GasGrill::grillSausage(int levelPosition)
 {
-    GasGrill::ligthFlame();
+    lightFlame();
     distanceToCoal = levelPosition * 5;
 }
 
 
-bool GasGrill::ligthFlame()
+bool GasGrill::lightFlame()
 {
     currentTemperature = 932.3f;
     return true;
@@ -367,8 +361,7 @@ struct Display
 
 bool Display::DisplayCable::isConnected(bool highSpeed)
 {
-    if(highSpeed && currentTransferSpeed > 10000) return true;
-    else return false;
+    return highSpeed && currentTransferSpeed > 10000;
 
 }
 
@@ -467,20 +460,23 @@ void Drumpad::unlitPad()
  };
 
 
-void VolumeControl::increaseMasterVolume(int newVolume) {
-    if(newVolume < currentVol) currentVol = newVolume;
+void VolumeControl::increaseMasterVolume(int newVolume) 
+{
+    if(newVolume < currentVol) 
+        currentVol = newVolume;
 }
 
 
-void VolumeControl::decreaseMasterVolume(int newVolume) {
-    if(newVolume > currentVol) currentVol = newVolume;
+void VolumeControl::decreaseMasterVolume(int newVolume) 
+{
+    if(newVolume > currentVol) 
+        currentVol = newVolume;
 }
 
 
 bool VolumeControl::isMaxVolume()
 {
-    if(currentVol == 127) return true;
-    else return false;
+    return (currentVol == 127);
 }
 
 //--------------------------------------------------------
@@ -511,11 +507,6 @@ bool VolumeControl::isMaxVolume()
  void PlayButton::flashGreen() 
  {
     litGreen();
-    //sleep(pulseSpeed); // FakeCode
-    //unliteGreen();
-    //sleep(pulseSpeed);
-    //litGreen();
-
  }
 
 
@@ -548,18 +539,13 @@ bool VolumeControl::isMaxVolume()
 
 bool RecordButton::isPressed()
 {
-    if(switchOn) return true;
-    else return false;
+    return switchOn;
 }
 
 
 void RecordButton::flashRed()
 {
-    //litRed();
-    //sleep(pulseSpeed); // FakeCode
-    //unliteRed();
-    //sleep(pulseSpeed);
-    //litFred();   
+    std::cout << "The record button flash very beautyful!" << std::endl;;  
 }
 
 
@@ -606,10 +592,10 @@ void DrumMachine::playPattern(int patternId)
     switch (patternId)
     {
         case 1:
-            // Play "Pattern 1";
+            std::cout << "Play [Pattern 1]" << std::endl;;
             break;
         case 2:
-            // Play "Pattern 2";
+            std::cout << "Play [Pattern 2]" << std::endl;;
             break;
     }
 }
@@ -619,7 +605,7 @@ void DrumMachine::recPattern(int patternLength)
 {
     if(patternLength > 0)
     {
-        // Record a cool pattern
+        std::cout << "Pattern recording with pattern length " << patternLength << std::endl;;
     } 
 }
 
