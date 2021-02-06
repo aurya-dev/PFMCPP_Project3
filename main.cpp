@@ -121,196 +121,218 @@ struct CarWash
  4) After you finish defining each type/function, click the [run] button.  Clear up any errors or warnings as best you can.
  */
 
+//--------------------------------------------------------
+// DrillMachine
+//--------------------------------------------------------
 
-
-/*
-Thing 1) Drill Machine
-5 properties:
-    1) size of drill chucks
-    2) number of modes
-    3) motor power
-    4) cable length 
-    5) drilling speed
-3 things it can do:
-    1) drill hole
-    2) screw screw
-    3) load the accu
- */
-
-struct DrillMaschine 
+struct DrillMachine 
 {
-    // Size of the drill chucks
     int sizeOfDrillChucks = 10;
-    // Number of modes
     int numOfModes = 2;
-    // Motor power 
     int motorPower = 1500;
-    // Cable length
     float cableLength = 1.5f;
-    // Drilling speed
-    int drillingSpeed = 3000;
+    bool accuTooWeak = false;
+    int screwTime = 0;
 
     struct DrillBit
     {
-        float drillChuck = 10.0f;
+        int drillChuck = 10;
         int length = 140;
         std::string material = "steel";
         bool isHardened = true;
         bool isForWood = true;
+        bool isStucked = false;
+        float maxTemperature = 303.3f;
 
         void drill(int depth = 10);
-        bool isStuck();
-        bool isToHot();
-
-
+        bool isDull(float currentTemperature);
+        bool isToHot(float currentTemperature);
     };
 
-    // Drill hole (return true if screw process was sucessful)
     bool drillHole(DrillBit bit);
-    // screw screws (return true if screw process was sucessful)
     bool screwScrew(int speed, bool screwIn);
-    // load the accu
     void loadAccu();
 
     DrillBit myDrillBit;
 };
 
 
-/*
-Thing 2) Soda Maker
-5 properties:
-    1) water pressure
-    2) size of container
-    3) volume of soda tank 
-    4) years of guarantee
-    5) number of bottles
-3 things it can do:
-    1) make soda water
-    2) install soda tank
-    3) get name of the manufacturer
- */
+void DrillMachine::DrillBit::drill(int depth) 
+{
+    isStucked = (depth > length);
+}
+
+
+bool DrillMachine::DrillBit::isDull(float currentTemperature) 
+{
+    return isToHot(currentTemperature);
+}
+
+
+bool DrillMachine::DrillBit::isToHot(float currentTemperature)
+{
+    return currentTemperature > maxTemperature;
+}
+
+
+bool DrillMachine::drillHole(DrillBit bit)
+{
+    if(bit.drillChuck <= sizeOfDrillChucks) 
+    {
+        bit.drill(15);
+        return true;
+    }
+    return false;
+}
+
+
+bool DrillMachine::screwScrew(int speed, bool screwIn)
+{
+    if(accuTooWeak == false) 
+    {
+        if(screwIn) 
+            screwTime = speed * 5;
+        else 
+            screwTime = speed * 6;
+        return true;
+    }
+    return false;
+}
+
+void DrillMachine::loadAccu()
+{
+    accuTooWeak = false;
+}
+
+
+
+//--------------------------------------------------------
+// SodaMaker
+//--------------------------------------------------------
 
 struct SodaMaker
 {
-    // Water pressure
     float waterPressure = 5.0f;
-    // Size of container
     int containerSize = 2;
-    // volume of soda tank 
     float sodaTankVolume = 0.5f;
-    // years of guarantee
-    int guaranteeYears = 2;
-    // number of bottles
-    int numBottles = 1;
+    int sparklingWaterFactor = 2;
+    bool sodaTankEmpty = false;
 
-    // make soda water
-    void makeSodaWater(int pressButtonDuration);
-    // install soda tank
+    void makeSodaWater(float waterVolume);
     void installSodaTank();
-    // get name of the manufacturer
     std::string getManufacturerName();
 };
 
 
+void SodaMaker::makeSodaWater(float waterVolume)
+{
+    if(!sodaTankEmpty && waterVolume <= sodaTankVolume)
+        std::cout << "make sparklingWater" << std::endl;
+}
 
-/*
-Thing 3) Dish Washer
-5 properties:
-    1) volume of washing room
-    2) number of programs
-    3) duration of duration of the washing process
-    4) amount of detergen tank
-    5) duration of timer
-3 things it can do:
-    1) wash dishes
-    2) dry dishes
-    3) start at timer
- */
+
+void SodaMaker::installSodaTank()
+{
+    sodaTankEmpty = false;
+}
+
+
+std::string SodaMaker::getManufacturerName() 
+{
+    return "SodaStream";
+}
+
+
+//--------------------------------------------------------
+// DishWasher
+//--------------------------------------------------------
 
  struct DishWasher
  {
-    // volume of washing room
     float washingRoomVolume = 5.2f;
-    // number of programs
     int numOfPrograms = 12;
-    // duration of duration of the washing process
-    int washingDuration = 120;
-    // amount of detergen tank
-    float amountDetergenTank = 0.200f;
-    // duration of timer
+    int maxWashingDuration = 120;
+    float maxWashTemperature = 90.0f;
     int timerDuration = 360;
+    int waitMilliSec = 0;
 
-    // wash dishes (returns true after the sucessful process)
     bool washDishes(int programNumber);
-    // dry dishes (returns true after the sucessful process)
-    bool dryDishes(int duration, int temperature);
-    // start at timer
+    bool dryDishes(int duration, float temperature);
     void startAtTimer(int startMinutesLater);   
  };
 
-/*
-Thing 4) Gas Grill
-5 properties:
-    1) size of grill plate
-    2) volume of coal
-    3) number level positions
-    4) heat temperature
-    5) port size of gas tank 
-3 things it can do:
-    1) grill sausage
-    2) light the flame
-    3) turn of the flame
- */
+
+bool DishWasher::washDishes(int programNumber)
+{
+    return ! (programNumber > 12);
+}
+
+
+bool DishWasher::dryDishes(int duration, float temperature)
+{
+    return (duration <= maxWashingDuration || temperature <= maxWashTemperature);
+}
+
+
+void DishWasher::startAtTimer(int startMinutesLater)
+{
+    waitMilliSec = startMinutesLater * 1000;
+    washDishes(1);    
+} 
+
+//--------------------------------------------------------
+// GasGrill
+//--------------------------------------------------------
 
 struct GasGrill
 {
-    // size of grill plate
     double grillPlateSize = 50;
-    // volume of coal
     int volumeOfCoal = 5;
-    // number level positions
     int numLevelPositions = 3;
-    // heat temperature
     int heatTemperature = 1000;
-    // port size of gas tank 
     int gasTankPortSize = 5;
+    int distanceToCoal = 5;
+    float currentTemperature = 0.0f;
 
-    // grill sausage
     void grillSausage(int levelPosition);
-    // light the flame (returns true if the process was sucessful)
-    bool ligthFlame();
-    // turn off the flame
+    bool lightFlame();
     void turnOffFlame();
-
 };
 
 
-/*
-Thing 5) Display
-5 properties:
-    1) Color Depth
-    2) Pixel width
-    3) Pixel height
-    4) Power consumption
-    5) Brightness
-3 things it can do:
-    1) Display text
-    2) Display image
-    3) Turn backlight off 
- */
+void GasGrill::grillSausage(int levelPosition)
+{
+    lightFlame();
+    distanceToCoal = levelPosition * 5;
+}
+
+
+bool GasGrill::lightFlame()
+{
+    currentTemperature = 932.3f;
+    return true;
+}
+
+
+void GasGrill::turnOffFlame()
+{
+    currentTemperature = 0.0f;
+}
+
+
+//--------------------------------------------------------
+// Display
+//--------------------------------------------------------
 
 struct Display
 {
-    // Color Depth
     int colorDepth = 16;
-    // Pixel width
     int pixelWidth = 1024;
-    // Pixel height
     int pixelHeight = 768;
-    // Power consumption
     float powerConsumption = 0.4f;
-    // get the active Port
     char activePort = 'd';
+    std::string currentText = "";
+    std::string currentImage = "/media/default.png";
 
     struct DisplayCable
     {
@@ -319,202 +341,264 @@ struct Display
         std::string type = "LVDS";
         int version = 2;
         bool isHighSpeed = true;
+        int currentTransferSpeed = 14400; 
+        bool networkActive = false;
 
         bool isConnected(bool highSpeed = true);
         bool isNetworkConnected();
         std::string getResolution();
-
     };
 
-    // Display text
-    void displayText(DisplayCable myCable);
-    // Display image
-    void displayImage(DisplayCable myCable);
-    // get the active Port
+    void displayText(std::string text);
+    void displayImage(std::string imageFileURL);
     char getActivePort(); 
 
     DisplayCable myCable;
-
 };
 
 
+bool Display::DisplayCable::isConnected(bool highSpeed)
+{
+    return highSpeed && currentTransferSpeed > 10000;
+}
 
 
-/*
-Thing 6) Drumpads
-5 properties:
-    1) Number of Pads
-    2) Pad sensitivity
-    3) Width of a Pad
-    4) Height of Pad
-    5) Pad color Brightness 
-3 things it can do:
-    1) Lit pad
-    2) Check hit pressure
-    3) Default sound bank  
- */
+bool Display::DisplayCable::isNetworkConnected()
+{
+    return networkActive;
+}
+
+
+std::string Display::DisplayCable::getResolution()
+{
+    return "1024x768";
+}
+
+
+void Display::displayText(std::string text)
+{
+    if(myCable.isConnected(true))
+        currentText = text;
+}
+
+
+void Display::displayImage(std::string imageFileURL)
+{
+    if(myCable.isConnected(true))
+        currentImage = imageFileURL;
+}
+
+
+char Display::getActivePort()
+{
+    return activePort;
+} 
+
+
+//--------------------------------------------------------
+// Drumpad
+//--------------------------------------------------------
 
  struct Drumpad 
  {
-    // Number of Pads
     int numPads = 16;
-    // Pad sensitivity
     double padSensivity = 3453452345345;
-    // Width of a Pad
     float padWidth = 20.5f;
-    // Height of Pad
     float padHeight = 20.5f;
-    // Default sound bank
     char defaultSoundBank = 'a';
+    bool padLightOn = false;
+    double currentPadSensivity = 6004534534; 
 
-    // Lit pad
     void litPad();
-    // Check hit pressure
     double checkHitPreassure();
-    // Unlit pad 
     void unlitPad();
  };
 
-/*
-Thing 7) Volume Control
-5 properties:
-    1) Knob diameter
-    2) Knob height
-    3) Knob range
-    4) Poti resitance 
-    5) Number of cable connections
-3 things it can do:
-    1) Increase master volume
-    2) Decrease master volume
-    3) returns true if the knob is on max position
- */
+
+ void Drumpad::litPad()
+ {
+     padLightOn = true;
+ }
+
+
+ double Drumpad::checkHitPreassure()
+ {
+     return currentPadSensivity;
+ }
+
+
+void Drumpad::unlitPad()
+{
+    padLightOn = false;
+}
+
+//--------------------------------------------------------
+// VolumeControl
+//--------------------------------------------------------
 
  struct VolumeControl 
  {
-    // Knob diameter
     float knobDiameter = 10.3f;
-    // Knob height
     float knobHeight = 20.7f;
-    // Knob range
     int knobRange = 270;
-    // Poti resitance 
     double potiResitance = 12000034523462;
-    // Number of cable connections
     int numCableConnection = 3;
+    int currentVol = 23;
 
-    // Increase master volume
     void increaseMasterVolume(int newVolume);
-    // Decrease master volume
     void decreaseMasterVolume(int newVolume);
-    // returns true if the knob is on max position
     bool isMaxVolume();
  };
 
-/*
-Thing 8) Play Button
-5 properties:
-    1) Button width
-    2) Button height
-    3) Switch depth
-    4) LED Brightness
-    5) Number of cable connections
-3 things it can do:
-    1) Lit green
-    2) Flash green
-    3) get the label of the Button
- */
+
+void VolumeControl::increaseMasterVolume(int newVolume) 
+{
+    if(newVolume < currentVol) 
+        currentVol = newVolume;
+}
+
+
+void VolumeControl::decreaseMasterVolume(int newVolume) 
+{
+    if(newVolume > currentVol) 
+        currentVol = newVolume;
+}
+
+
+bool VolumeControl::isMaxVolume()
+{
+    return (currentVol == 127);
+}
+
+//--------------------------------------------------------
+// PlayButton
+//--------------------------------------------------------
 
  struct PlayButton 
  {
-    // Button width
     float buttonWidth = 10.8f;
-    // Button height
     float buttonHeight = 5.2f;
-    // Switch depth
     float switchDepth = 2.0f;
-    // LED Brightness
     int ledBrightness = 20;
-    // Number of cable connections
     int numCableConnection = 2;
+    bool lightOn = false;
 
-    // Lit green
     void litGreen();
-    // Flash green
-    void flashGreen(int pulseSpeed);
-    // get the label of the Button
+    void flashGreen();
     std::string getLabelName();
  };
 
-/*
-Thing 9) Record Button
-5 properties:
-    1) Button width
-    2) Button height
-    3) Switch depth
-    4) LED Brightness
-    5) Number of cable connections
-3 things it can do:
-    1) Returns true if the button is pressed
-    2) Flash red
-    3) Record Midi Events
- */
+
+ void PlayButton::litGreen()
+ {
+     lightOn = true;
+ }
+
+
+ void PlayButton::flashGreen() 
+ {
+    litGreen();
+ }
+
+
+ std::string PlayButton::getLabelName()
+ {
+     return "Play";
+ }
+
+
+//--------------------------------------------------------
+// RecordButton
+//--------------------------------------------------------
 
  struct RecordButton
  {
-    // Button width
     float buttonWidth = 10.7f;
-    // Button height
     float buttonHeight = 5.8f;
-    // Switch depth
     float switchDepth = 2.0f;
-    // LED Brightness
     int ledBrightness = 20;
-    // Number of cable connections
     int numCableConnection = 2; 
+    bool switchOn = false;
+    int recMidiPort = 0;
+    int recMidiChannel = 0;
 
-    // Returns true if the button is pressed
     bool isPressed();
-    // Flash red
-    void flashRed(int pulseSpeed);
-    // Record Midi Events
+    void flashRed();
     void recMidiEvents(int midiPort, int midiChannel);
-
  };
 
-/*
-Thing 10) Drum Machine
-5 properties:
-    1) Display
-    2) Drumpads
-    3) Volume Control
-    4) Play Button
-    5) Record Button
-3 things it can do:
-    1) Returns the name of the pattern
-    2) Play pattern
-    3) Record pattern
- */
+
+bool RecordButton::isPressed()
+{
+    return switchOn;
+}
+
+
+void RecordButton::flashRed()
+{
+    std::cout << "The record button flash very beautyful!" << std::endl;  
+}
+
+
+void RecordButton::recMidiEvents(int midiPort, int midiChannel)
+{
+    recMidiPort = midiPort;
+    recMidiChannel = midiChannel;
+}
+
+//--------------------------------------------------------
+// DrumMachine
+//--------------------------------------------------------
 
  struct DrumMachine
  {
-    // Display
     Display display;
-    // Drumpads
     Drumpad drumpad;
-    // Volume Control
     VolumeControl volControl;
-    // Play Button
     PlayButton playButton;
-    // Record Button
     RecordButton recButton;
     
-    // Returns the name of the pattern
     std::string getPatternName (int patternId);
-    // Play pattern
     void playPattern(int patternId);
-    // Record pattern
     void recPattern(int patternLength = 4);
  };
+
+
+std::string DrumMachine::getPatternName (int patternId)
+{
+    switch (patternId)
+    {
+        case 1:
+            return "Pattern 1";
+        case 2:
+            return "Pattern 2";
+        default:
+            return "Pattern X";
+    }
+}
+
+
+void DrumMachine::playPattern(int patternId)
+{
+    switch (patternId)
+    {
+        case 1:
+            std::cout << "Play [Pattern 1]" << std::endl;
+            break;
+        case 2:
+            std::cout << "Play [Pattern 2]" << std::endl;
+            break;
+        default:
+            std::cout << "Play [Pattern X]" << std::endl;
+    }
+}
+
+
+void DrumMachine::recPattern(int patternLength)
+{
+    if(patternLength > 0)
+        std::cout << "Pattern recording with pattern length " << patternLength << std::endl;
+}
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
