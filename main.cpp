@@ -157,12 +157,14 @@ struct DrillMachine
 };
 
 
-void DrillMachine::DrillBit::drill(int depth) {
+void DrillMachine::DrillBit::drill(int depth) 
+{
     isStucked = (depth > length);
 }
 
 
-bool DrillMachine::DrillBit::isDull(float currentTemperature) {
+bool DrillMachine::DrillBit::isDull(float currentTemperature) 
+{
     return isToHot(currentTemperature);
 }
 
@@ -180,7 +182,6 @@ bool DrillMachine::drillHole(DrillBit bit)
         bit.drill(15);
         return true;
     }
-
     return false;
 }
 
@@ -226,9 +227,7 @@ struct SodaMaker
 void SodaMaker::makeSodaWater(float waterVolume)
 {
     if(!sodaTankEmpty && waterVolume <= sodaTankVolume)
-    {
-        // Create wonderful sparkling water!
-    }
+        std::cout << "make sparklingWater" << std::endl;
 }
 
 
@@ -278,7 +277,6 @@ bool DishWasher::dryDishes(int duration, float temperature)
 void DishWasher::startAtTimer(int startMinutesLater)
 {
     waitMilliSec = startMinutesLater * 1000;
-    // sleep(startMinutesLater * startMinutesLater);
     washDishes(1);    
 } 
 
@@ -362,14 +360,12 @@ struct Display
 bool Display::DisplayCable::isConnected(bool highSpeed)
 {
     return highSpeed && currentTransferSpeed > 10000;
-
 }
 
 
 bool Display::DisplayCable::isNetworkConnected()
 {
-    if(networkActive) return true;
-    else return false;
+    return networkActive;
 }
 
 
@@ -382,19 +378,14 @@ std::string Display::DisplayCable::getResolution()
 void Display::displayText(std::string text)
 {
     if(myCable.isConnected(true))
-    {
         currentText = text;
-    }
-    
 }
 
 
 void Display::displayImage(std::string imageFileURL)
 {
     if(myCable.isConnected(true))
-    {
         currentImage = imageFileURL;
-    }
 }
 
 
@@ -545,7 +536,7 @@ bool RecordButton::isPressed()
 
 void RecordButton::flashRed()
 {
-    std::cout << "The record button flash very beautyful!" << std::endl;;  
+    std::cout << "The record button flash very beautyful!" << std::endl;  
 }
 
 
@@ -592,11 +583,13 @@ void DrumMachine::playPattern(int patternId)
     switch (patternId)
     {
         case 1:
-            std::cout << "Play [Pattern 1]" << std::endl;;
+            std::cout << "Play [Pattern 1]" << std::endl;
             break;
         case 2:
-            std::cout << "Play [Pattern 2]" << std::endl;;
+            std::cout << "Play [Pattern 2]" << std::endl;
             break;
+        default:
+            std::cout << "Play [Pattern X]" << std::endl;
     }
 }
 
@@ -604,9 +597,7 @@ void DrumMachine::playPattern(int patternId)
 void DrumMachine::recPattern(int patternLength)
 {
     if(patternLength > 0)
-    {
-        std::cout << "Pattern recording with pattern length " << patternLength << std::endl;;
-    } 
+        std::cout << "Pattern recording with pattern length " << patternLength << std::endl;
 }
 
 /*
