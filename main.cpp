@@ -68,22 +68,26 @@ int main()
 
 struct DrillMachine 
 {
-    int sizeOfDrillChucks = 10;
-    int numOfModes = 2;
-    int motorPower = 1500;
-    float cableLength = 1.5f;
-    bool accuTooWeak = false;
-    int screwTime = 0;
+    int sizeOfDrillChucks;
+    int numOfModes;
+    int motorPower;
+    float cableLength;
+    bool accuTooWeak;
+    int screwTime;
+
+    DrillMachine();
 
     struct DrillBit
     {
-        int drillChuck = 10;
-        int length = 140;
-        std::string material = "steel";
-        bool isHardened = true;
-        bool isForWood = true;
-        bool isStucked = false;
-        float maxTemperature = 303.3f;
+        int drillChuck;
+        int length;
+        std::string material;
+        bool isHardened;
+        bool isForWood;
+        bool isStucked;
+        float maxTemperature;
+
+        DrillBit();
 
         void drill(int depth = 10);
         bool isDull(float currentTemperature);
@@ -97,6 +101,28 @@ struct DrillMachine
     DrillBit myDrillBit;
 };
 
+
+DrillMachine::DrillMachine()
+{
+    sizeOfDrillChucks = 10;
+    numOfModes = 2;
+    motorPower = 1500;
+    cableLength = 1.5f;
+    accuTooWeak = false;
+    screwTime = 0;
+}
+
+
+DrillMachine::DrillBit::DrillBit()
+{
+    drillChuck = 10;
+    length = 140;
+    material = "steel";
+    isHardened = true;
+    isForWood = true;
+    isStucked = false;
+    maxTemperature = 303.3f;
+}
 
 void DrillMachine::DrillBit::drill(int depth) 
 {
@@ -153,16 +179,28 @@ void DrillMachine::loadAccu()
 
 struct SodaMaker
 {
-    float waterPressure = 5.0f;
-    int containerSize = 2;
-    float sodaTankVolume = 0.5f;
-    int sparklingWaterFactor = 2;
-    bool sodaTankEmpty = false;
+    float waterPressure;
+    int containerSize;
+    float sodaTankVolume;
+    int sparklingWaterFactor;
+    bool sodaTankEmpty;
+
+    SodaMaker();
 
     void makeSodaWater(float waterVolume);
     void installSodaTank();
     std::string getManufacturerName();
 };
+
+
+SodaMaker::SodaMaker()
+{
+    waterPressure = 5.0f;
+    containerSize = 2;
+    sodaTankVolume = 0.5f;
+    sparklingWaterFactor = 2;
+    sodaTankEmpty = false;
+}
 
 
 void SodaMaker::makeSodaWater(float waterVolume)
@@ -190,17 +228,30 @@ std::string SodaMaker::getManufacturerName()
 
  struct DishWasher
  {
-    float washingRoomVolume = 5.2f;
-    int numOfPrograms = 12;
-    int maxWashingDuration = 120;
-    float maxWashTemperature = 90.0f;
-    int timerDuration = 360;
-    int waitMilliSec = 0;
+    float washingRoomVolume;
+    int numOfPrograms;
+    int maxWashingDuration;
+    float maxWashTemperature;
+    int timerDuration;
+    int waitMilliSec;
+
+    DishWasher();
 
     bool washDishes(int programNumber);
     bool dryDishes(int duration, float temperature);
     void startAtTimer(int startMinutesLater);   
  };
+
+
+DishWasher::DishWasher()
+{
+    washingRoomVolume = 5.2f;
+    numOfPrograms = 12;
+    maxWashingDuration = 120;
+    maxWashTemperature = 90.0f;
+    timerDuration = 360;
+    waitMilliSec = 0;
+}
 
 
 bool DishWasher::washDishes(int programNumber)
@@ -227,18 +278,32 @@ void DishWasher::startAtTimer(int startMinutesLater)
 
 struct GasGrill
 {
-    double grillPlateSize = 50;
-    int volumeOfCoal = 5;
-    int numLevelPositions = 3;
-    int heatTemperature = 1000;
-    int gasTankPortSize = 5;
-    int distanceToCoal = 5;
-    float currentTemperature = 0.0f;
+    double grillPlateSize;
+    int volumeOfCoal;
+    int numLevelPositions;
+    int heatTemperature;
+    int gasTankPortSize;
+    int distanceToCoal;
+    float currentTemperature;
+
+    GasGrill();
 
     void grillSausage(int levelPosition);
     bool lightFlame();
     void turnOffFlame();
 };
+
+
+GasGrill::GasGrill()
+{
+    grillPlateSize = 50;
+    volumeOfCoal = 5;
+    numLevelPositions = 3;
+    heatTemperature = 1000;
+    gasTankPortSize = 5;
+    distanceToCoal = 5;
+    currentTemperature = 0.0f;
+}
 
 
 void GasGrill::grillSausage(int levelPosition)
@@ -267,23 +332,27 @@ void GasGrill::turnOffFlame()
 
 struct Display
 {
-    int colorDepth = 16;
-    int pixelWidth = 1024;
-    int pixelHeight = 768;
-    float powerConsumption = 0.4f;
-    char activePort = 'd';
-    std::string currentText = "";
-    std::string currentImage = "/media/default.png";
+    int colorDepth;
+    int pixelWidth;
+    int pixelHeight;
+    float powerConsumption;
+    char activePort;
+    std::string currentText;
+    std::string currentImage;
+
+    Display();
 
     struct DisplayCable
     {
-        int length = 150;
-        std::string color = "black";
-        std::string type = "LVDS";
-        int version = 2;
-        bool isHighSpeed = true;
-        int currentTransferSpeed = 14400; 
-        bool networkActive = false;
+        int length;
+        std::string color;
+        std::string type;
+        int version;
+        bool isHighSpeed;
+        int currentTransferSpeed; 
+        bool networkActive;
+
+        DisplayCable();
 
         bool isConnected(bool highSpeed = true);
         bool isNetworkConnected();
@@ -296,6 +365,30 @@ struct Display
 
     DisplayCable myCable;
 };
+
+
+Display::Display()
+{
+    colorDepth = 16;
+    pixelWidth = 1024;
+    pixelHeight = 768;
+    powerConsumption = 0.4f;
+    activePort = 'd';
+    currentText = "";
+    currentImage = "/media/default.png";   
+}
+
+
+Display::DisplayCable::DisplayCable()
+{
+    length = 150;
+    color = "black";
+    type = "LVDS";
+    version = 2;
+    isHighSpeed = true;
+    currentTransferSpeed = 14400; 
+    networkActive = false;
+}
 
 
 bool Display::DisplayCable::isConnected(bool highSpeed)
@@ -342,19 +435,32 @@ char Display::getActivePort()
 
  struct Drumpad 
  {
-    int numPads = 16;
-    double padSensivity = 3453452345345;
-    float padWidth = 20.5f;
-    float padHeight = 20.5f;
-    char defaultSoundBank = 'a';
-    bool padLightOn = false;
-    double currentPadSensivity = 6004534534; 
+    int numPads;
+    double padSensivity;
+    float padWidth;
+    float padHeight;
+    char defaultSoundBank;
+    bool padLightOn;
+    double currentPadSensivity; 
+
+    Drumpad();
 
     void litPad();
     double checkHitPreassure();
     void unlitPad();
  };
 
+
+Drumpad::Drumpad()
+{
+    numPads = 16;
+    padSensivity = 3453452345345;
+    padWidth = 20.5f;
+    padHeight = 20.5f;
+    defaultSoundBank = 'a';
+    padLightOn = false;
+    currentPadSensivity = 6004534534; 
+}
 
  void Drumpad::litPad()
  {
@@ -379,18 +485,31 @@ void Drumpad::unlitPad()
 
  struct VolumeControl 
  {
-    float knobDiameter = 10.3f;
-    float knobHeight = 20.7f;
-    int knobRange = 270;
-    double potiResitance = 12000034523462;
-    int numCableConnection = 3;
-    int currentVol = 23;
+    float knobDiameter;
+    float knobHeight;
+    int knobRange;
+    double potiResitance;
+    int numCableConnection;
+    int currentVol;
+
+    VolumeControl();
 
     void increaseMasterVolume(int newVolume);
     void decreaseMasterVolume(int newVolume);
     bool isMaxVolume();
  };
 
+
+VolumeControl::VolumeControl()
+{    
+    knobDiameter = 10.3f;
+    knobHeight = 20.7f;
+    knobRange = 270;
+    potiResitance = 12000034523462;
+    numCableConnection = 3;
+    currentVol = 23;
+}
+ 
 
 void VolumeControl::increaseMasterVolume(int newVolume) 
 {
@@ -417,17 +536,30 @@ bool VolumeControl::isMaxVolume()
 
  struct PlayButton 
  {
-    float buttonWidth = 10.8f;
-    float buttonHeight = 5.2f;
-    float switchDepth = 2.0f;
-    int ledBrightness = 20;
-    int numCableConnection = 2;
-    bool lightOn = false;
+    float buttonWidth;
+    float buttonHeight;
+    float switchDepth;
+    int ledBrightness;
+    int numCableConnection;
+    bool lightOn;
+
+    PlayButton();
 
     void litGreen();
     void flashGreen();
     std::string getLabelName();
  };
+
+
+ PlayButton::PlayButton()
+ {
+    buttonWidth = 10.8f;
+    buttonHeight = 5.2f;
+    switchDepth = 2.0f;
+    ledBrightness = 20;
+    numCableConnection = 2;
+    lightOn = false;
+ }
 
 
  void PlayButton::litGreen()
@@ -454,19 +586,34 @@ bool VolumeControl::isMaxVolume()
 
  struct RecordButton
  {
-    float buttonWidth = 10.7f;
-    float buttonHeight = 5.8f;
-    float switchDepth = 2.0f;
-    int ledBrightness = 20;
-    int numCableConnection = 2; 
-    bool switchOn = false;
-    int recMidiPort = 0;
-    int recMidiChannel = 0;
+    float buttonWidth;
+    float buttonHeight;
+    float switchDepth;
+    int ledBrightness;
+    int numCableConnection; 
+    bool switchOn;
+    int recMidiPort;
+    int recMidiChannel;
+
+    RecordButton();
 
     bool isPressed();
     void flashRed();
     void recMidiEvents(int midiPort, int midiChannel);
  };
+
+
+ RecordButton::RecordButton()
+ {
+    buttonWidth = 10.7f;
+    buttonHeight = 5.8f;
+    switchDepth = 2.0f;
+    ledBrightness = 20;
+    numCableConnection = 2; 
+    switchOn = false;
+    recMidiPort = 0;
+    recMidiChannel = 0;
+ }
 
 
 bool RecordButton::isPressed()
@@ -498,11 +645,19 @@ void RecordButton::recMidiEvents(int midiPort, int midiChannel)
     VolumeControl volControl;
     PlayButton playButton;
     RecordButton recButton;
+
+    DrumMachine();
     
     std::string getPatternName (int patternId);
     void playPattern(int patternId);
     void recPattern(int patternLength = 4);
  };
+
+
+DrumMachine::DrumMachine()
+{
+    std::cout << "Constructor of DrumMachine executed" << std::endl;
+}
 
 
 std::string DrumMachine::getPatternName (int patternId)
@@ -558,5 +713,111 @@ void DrumMachine::recPattern(int patternLength)
 #include <iostream>
 int main()
 {
+    // DrillMachine
+    
+    DrillMachine myDrillSuperMaschine;
+    std::cout << "The power of the drill machine is : " << myDrillSuperMaschine.motorPower << " W" << std::endl;
+    if(myDrillSuperMaschine.accuTooWeak) 
+        std::cout << "The accu of the drill machine is to weak" << std::endl;
+    else
+        std::cout << "The accu is loaded" << std::endl;
+
+    if(myDrillSuperMaschine.myDrillBit.isToHot(1000))
+        std::cout << "The bit is to hot" << std::endl;;
+
+    
+    // SodaMaker
+
+    SodaMaker sodaMachine;
+    std::cout << "The brand of the soda maker is: " << sodaMachine.getManufacturerName() << std::endl;
+    if (sodaMachine.containerSize == 2)
+        sodaMachine.makeSodaWater(0.5f);
+
+    
+    // DishWasher
+
+    DishWasher firstDishWasher;
+    std::cout << "The maximal temperature of the washing process is " << firstDishWasher.maxWashTemperature << std::endl;
+
+    if(firstDishWasher.washDishes(4)) 
+    {
+        firstDishWasher.dryDishes(120, 40.3f);
+        std::cout << "Wash and dry process sucessfull!" << std::endl;
+    }
+
+    // GasGrill
+
+    GasGrill propanGrill;
+    std::cout << "Grill size: " << propanGrill.grillPlateSize << std::endl;
+
+    propanGrill.currentTemperature = 302.2f;
+
+
+    // Display
+
+    Display d;
+    d.currentText = "Hello world!";
+    if(d.activePort == 'b')
+        std::cout << "Used port " << d.activePort << std::endl;
+
+    
+    // Drumpad
+
+    Drumpad dPad;
+    std::cout << "Pad area: " << dPad.padWidth * dPad.padHeight << std::endl;
+
+    if(dPad.currentPadSensivity > 4)
+        std::cout << "Too heavy hit!" << std::endl;
+
+
+    // VolumeControl
+
+    VolumeControl vol;
+    vol.increaseMasterVolume(60);
+    if(vol.currentVol == 0)
+        std::cout << "Nothing to hear!" << std::endl;
+
+
+    // PlayButton
+
+    PlayButton buttonPlay;
+
+    if(buttonPlay.lightOn)
+        buttonPlay.litGreen();
+
+
+    // RecordButton
+
+    RecordButton rec;
+    std::cout << "Rec channel: " << rec.recMidiPort << std::endl;
+    rec.flashRed();
+
+
+    // DrumMachine
+
+    DrumMachine drumMachine;
+
+    if(drumMachine.volControl.isMaxVolume()) 
+    {
+        std::cout << "The drummachine is to loud!!!" << std::endl;
+        drumMachine.volControl.decreaseMasterVolume(50);
+    }
+    else 
+    {
+        std::cout << "The drummaschine is to quite" << std::endl;
+        drumMachine.volControl.decreaseMasterVolume(80);
+        std::cout << "Current volume is " << drumMachine.volControl.currentVol << std::endl;
+    }
+        
+
+     
+
+
+
+
+
+
+
+
     std::cout << "good to go!" << std::endl;
 }
