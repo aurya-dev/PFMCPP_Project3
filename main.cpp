@@ -1,63 +1,41 @@
 /*
- Project 3 - Part 3 / 5
- video: Chapter 2 - Part 8
- Constructors tasks
+ Project 3 - Part 4 / 5
+ video: Chapter 2 - Part 9
+ Member initialization tasks
 
- Create a branch named Part3
+ Create a branch named Part4
+ 
+ 1) initialize some of your member variables either in-class or in the Constructor member initializer list.
 
- On this new branch:
-
- 1) Add a constructor for each User-Defined-Type.
+ 2) make some of your member functions use those initialized member variables via std::cout statements.
  
- 2) amend some of your UDT's member functions to print out something interesting via std::cout
- 
- 3) Instantiate 1 or 2 instances of each of your user-defined types in the main() function
-
- 4) call some of your UDT's amended member functions in main().
- 
- 5) add some std::cout statements in main() that print out your UDT's member variable values or values returned from your UDT member functions (if they return values)
- 
- After you finish defining each type/function:
- click the [run] button.  Clear up any errors or warnings as best you can.
- 
- example:
+ 3) click the [run] button.  Clear up any errors or warnings as best you can.
  */
 
 #include <iostream>
 namespace Example 
 {
-struct UDT  // my user defined type named 'UDT'
+struct UDT  
 {
     int a; //a member variable
-    UDT();              //1) the constructor
-    void printThing();  //the member function
+    float b { 2.f }; //3) in-class initialization
+    UDT() : a(0) { } //3) 'constructor-initializer-list' member variable initialization
+    void printThing()  //the member function
+    {
+        std::cout << "UDT::printThing() a:" << a << " b: " << b << std::endl;  //4) printing out something interesting
+    }
 };
-
-//the function definitions are outside of the class
-UDT::UDT()
-{
-    a = 0;
-}
-
-void UDT::printThing()
-{
-    std::cout << "UDT::printThing() " << a << std::endl;  //2) printing out something interesting
-}
 
 int main()
 {
-    UDT foo;              //3) instantiating a UDT named 'foo' in main()
-    foo.printThing();     //4) calling a member function of the UDT instance.
-    
-    //5) a std::cout statement accessing foo's member variable.
-    //It also demonstrates a 'ternary expression', which is syntactic shorthand for an 'if/else' expression
-    std::cout << "Is foo's member var 'a' equal to 0? " << (foo.a == 0 ? "Yes" : "No") << "\n";
-    
+    UDT foo; //instantiating a Foo in main()
+    foo.printThing(); //calling a member function of the instance that was instantiated.
     return 0;
 }
-} //end namespace Example
+}
 
-//insert Example::main() into main() of user's repo.
+//call Example::main()
+
 
 
 
@@ -729,6 +707,7 @@ void DrumMachine::recPattern(int patternLength)
 #include <iostream>
 int main()
 {
+    Example::main();
     // DrillMachine
     
     DrillMachine myDrillSuperMaschine;
@@ -741,7 +720,6 @@ int main()
     if(myDrillSuperMaschine.myDrillBit.isToHot(1000))
         std::cout << "The bit is to hot" << std::endl;;
 
-    
     // SodaMaker
 
     SodaMaker sodaMachine;
@@ -749,7 +727,6 @@ int main()
     if (sodaMachine.containerSize == 2)
         sodaMachine.makeSodaWater(0.5f);
 
-    
     // DishWasher
 
     DishWasher firstDishWasher;
@@ -769,8 +746,7 @@ int main()
     propanGrill.currentTemperature = 302.2f;
 
     propanGrill.turnOffFlame();
-
-
+    
     // Display
 
     Display d;
@@ -778,7 +754,6 @@ int main()
     if(d.activePort == 'b')
         std::cout << "Used port " << d.activePort << std::endl;
 
-    
     // Drumpad
 
     Drumpad dPad;
@@ -786,15 +761,13 @@ int main()
 
     if(dPad.currentPadSensivity > 4)
         std::cout << "Too heavy hit!" << std::endl;
-
-
+    
     // VolumeControl
 
     VolumeControl vol;
     vol.increaseMasterVolume(3);
     if(vol.currentVol == 0)
         std::cout << "Nothing to hear!" << std::endl;
-
 
     // PlayButton
 
@@ -804,17 +777,12 @@ int main()
 
     if(buttonPlay.lightOn)
         std::cout << "Sequencer is running..." << std::endl;
-        
-
-    
-
-
+       
     // RecordButton
 
     RecordButton rec;
     std::cout << "Rec channel: " << rec.recMidiPort << std::endl;
     rec.flashRed();
-
 
     // DrumMachine
 
