@@ -132,6 +132,7 @@ void DrillMachine::DrillBit::drill(int depth)
 
 bool DrillMachine::DrillBit::isDull(float currentTemperature) 
 {
+    std::cout << "Current temperature : " << currentTemperature << std::endl;
     return isToHot(currentTemperature);
 }
 
@@ -146,6 +147,7 @@ bool DrillMachine::drillHole(DrillBit bit)
 {
     if(bit.drillChuck <= sizeOfDrillChucks) 
     {
+        std::cout << "Drill process starts!" << std::endl;
         bit.drill(15);
         return true;
     }
@@ -212,6 +214,7 @@ void SodaMaker::makeSodaWater(float waterVolume)
 
 void SodaMaker::installSodaTank()
 {
+    std::cout << "Soda tank installed!" << std::endl;
     sodaTankEmpty = false;
 }
 
@@ -322,6 +325,7 @@ bool GasGrill::lightFlame()
 
 void GasGrill::turnOffFlame()
 {
+    std::cout << "Status: No flame" << std::endl;
     currentTemperature = 0.0f;
 }
 
@@ -513,15 +517,26 @@ VolumeControl::VolumeControl()
 
 void VolumeControl::increaseMasterVolume(int newVolume) 
 {
-    if(newVolume < currentVol) 
+    if(newVolume > currentVol) 
+    {
+        std::cout << "Volume increased from " << currentVol << " to " << newVolume << std::endl;
         currentVol = newVolume;
+    }
+    else 
+        std::cout << "New volume isn't bigger than the current volume" << std::endl;
+        
 }
 
 
 void VolumeControl::decreaseMasterVolume(int newVolume) 
 {
-    if(newVolume > currentVol) 
+    if(newVolume < currentVol) 
+    {
+        std::cout << "Volume decreased from " << currentVol << " to " << newVolume << std::endl;
         currentVol = newVolume;
+    }
+    else 
+        std::cout << "New volume isn't smaller than the current volume" << std::endl;
 }
 
 
@@ -562,30 +577,31 @@ bool VolumeControl::isMaxVolume()
  }
 
 
- void PlayButton::litGreen()
- {
-     lightOn = true;
- }
+void PlayButton::litGreen()
+{
+    std::cout << "Play button lits green" << std::endl;
+    lightOn = true;
+}
 
 
- void PlayButton::flashGreen() 
- {
+void PlayButton::flashGreen() 
+{
     litGreen();
- }
+}
 
 
- std::string PlayButton::getLabelName()
- {
-     return "Play";
- }
+std::string PlayButton::getLabelName()
+{
+    return "Play";
+}
 
 
 //--------------------------------------------------------
 // RecordButton
 //--------------------------------------------------------
 
- struct RecordButton
- {
+struct RecordButton
+{
     float buttonWidth;
     float buttonHeight;
     float switchDepth;
@@ -600,11 +616,11 @@ bool VolumeControl::isMaxVolume()
     bool isPressed();
     void flashRed();
     void recMidiEvents(int midiPort, int midiChannel);
- };
+};
 
 
- RecordButton::RecordButton()
- {
+RecordButton::RecordButton()
+{
     buttonWidth = 10.7f;
     buttonHeight = 5.8f;
     switchDepth = 2.0f;
@@ -613,7 +629,7 @@ bool VolumeControl::isMaxVolume()
     switchOn = false;
     recMidiPort = 0;
     recMidiChannel = 0;
- }
+}
 
 
 bool RecordButton::isPressed()
@@ -638,8 +654,8 @@ void RecordButton::recMidiEvents(int midiPort, int midiChannel)
 // DrumMachine
 //--------------------------------------------------------
 
- struct DrumMachine
- {
+struct DrumMachine
+{
     Display display;
     Drumpad drumpad;
     VolumeControl volControl;
@@ -651,7 +667,7 @@ void RecordButton::recMidiEvents(int midiPort, int midiChannel)
     std::string getPatternName (int patternId);
     void playPattern(int patternId);
     void recPattern(int patternLength = 4);
- };
+};
 
 
 DrumMachine::DrumMachine()
@@ -752,6 +768,8 @@ int main()
 
     propanGrill.currentTemperature = 302.2f;
 
+    propanGrill.turnOffFlame();
+
 
     // Display
 
@@ -773,7 +791,7 @@ int main()
     // VolumeControl
 
     VolumeControl vol;
-    vol.increaseMasterVolume(60);
+    vol.increaseMasterVolume(3);
     if(vol.currentVol == 0)
         std::cout << "Nothing to hear!" << std::endl;
 
@@ -782,8 +800,13 @@ int main()
 
     PlayButton buttonPlay;
 
+    buttonPlay.litGreen();
+
     if(buttonPlay.lightOn)
-        buttonPlay.litGreen();
+        std::cout << "Sequencer is running..." << std::endl;
+        
+
+    
 
 
     // RecordButton
