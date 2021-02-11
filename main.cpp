@@ -57,50 +57,42 @@ struct DrillMachine
 
     struct DrillBit
     {
-        int drillChuck;
-        int length;
-        std::string material;
-        bool isHardened;
-        bool isForWood;
-        bool isStucked;
-        float maxTemperature;
+        int drillChuck {10};
+        int length {140};
+        std::string material {"steel"};
+        bool isHardened {true};
+        bool isForWood {true};
+        bool isStucked {false};
+        float maxTemperature {303.3f};
 
         DrillBit();
 
         void drill(int depth = 10);
         bool isDull(float currentTemperature);
         bool isToHot(float currentTemperature);
+        void printStatus();
     };
 
     bool drillHole(DrillBit bit);
     bool screwScrew(int speed, bool screwIn);
     void loadAccu();
+    void printMachineProperties();
 
     DrillBit myDrillBit;
 };
 
 
-DrillMachine::DrillMachine()
-{
-    sizeOfDrillChucks = 10;
-    numOfModes = 2;
-    motorPower = 1500;
-    cableLength = 1.5f;
-    accuTooWeak = false;
-    screwTime = 0;
-}
+DrillMachine::DrillMachine() : 
+sizeOfDrillChucks(10),
+numOfModes(2),
+motorPower(1500),
+cableLength(1.5f),
+accuTooWeak(false),
+screwTime(0) 
+{}
 
 
-DrillMachine::DrillBit::DrillBit()
-{
-    drillChuck = 10;
-    length = 140;
-    material = "steel";
-    isHardened = true;
-    isForWood = true;
-    isStucked = false;
-    maxTemperature = 303.3f;
-}
+DrillMachine::DrillBit::DrillBit() {}
 
 void DrillMachine::DrillBit::drill(int depth) 
 {
@@ -118,6 +110,19 @@ bool DrillMachine::DrillBit::isDull(float currentTemperature)
 bool DrillMachine::DrillBit::isToHot(float currentTemperature)
 {
     return currentTemperature > maxTemperature;
+}
+
+
+void DrillMachine::DrillBit::printStatus()
+{
+    std::cout << "Drillbit - Status" << std::endl << "---------------------------------" << std::endl;
+    std::cout << "drillChuck: " << drillChuck << std::endl;
+    std::cout << "length: " << length << std::endl;
+    std::cout << "material: " << material << std::endl;
+    std::cout << "isHardened: " << isHardened << std::endl;
+    std::cout << "isForWood: " << isForWood << std::endl;
+    std::cout << "isStucked: " << isStucked << std::endl;
+    std::cout << "maxTemperature: " << maxTemperature << std::endl;  
 }
 
 
@@ -150,6 +155,17 @@ void DrillMachine::loadAccu()
 {
     accuTooWeak = false;
 }
+
+
+void DrillMachine::printMachineProperties()
+{
+    std::cout << "Drill machine proberties" << std::endl << "------------------------------------" << std::endl;
+    std::cout << "Size of drill chucks: " << sizeOfDrillChucks << std::endl;
+    std::cout << "Number of Modes: " << numOfModes << std::endl;
+    std::cout << "Motorpower: " << motorPower << std::endl;
+    std::cout << "Cable length: " << cableLength << std::endl;
+}
+
 
 
 
@@ -209,30 +225,23 @@ std::string SodaMaker::getManufacturerName()
 
  struct DishWasher
  {
-    float washingRoomVolume;
-    int numOfPrograms;
-    int maxWashingDuration;
-    float maxWashTemperature;
-    int timerDuration;
-    int waitMilliSec;
+    float washingRoomVolume {5.2f};
+    int numOfPrograms {12};
+    int maxWashingDuration {120};
+    float maxWashTemperature {90.0f};
+    int timerDuration {360};
+    int waitMilliSec {0};
 
     DishWasher();
 
     bool washDishes(int programNumber);
     bool dryDishes(int duration, float temperature);
-    void startAtTimer(int startMinutesLater);   
+    void startAtTimer(int startMinutesLater); 
+    float printMaxDishElements();  
  };
 
 
-DishWasher::DishWasher()
-{
-    washingRoomVolume = 5.2f;
-    numOfPrograms = 12;
-    maxWashingDuration = 120;
-    maxWashTemperature = 90.0f;
-    timerDuration = 360;
-    waitMilliSec = 0;
-}
+DishWasher::DishWasher() {}
 
 
 bool DishWasher::washDishes(int programNumber)
@@ -253,6 +262,16 @@ void DishWasher::startAtTimer(int startMinutesLater)
     washDishes(1);    
 } 
 
+
+float DishWasher::printMaxDishElements() 
+{
+    float maxDishElements = washingRoomVolume / 0.5f;
+    std::cout << "You can put" << maxDishElements << "dish elements in dish washer" << std::endl;
+    return maxDishElements;
+}
+
+
+
 //--------------------------------------------------------
 // GasGrill
 //--------------------------------------------------------
@@ -272,19 +291,19 @@ struct GasGrill
     void grillSausage(int levelPosition);
     bool lightFlame();
     void turnOffFlame();
+    void printImportantInfos();
 };
 
 
-GasGrill::GasGrill()
-{
-    grillPlateSize = 50;
-    volumeOfCoal = 5;
-    numLevelPositions = 3;
-    heatTemperature = 1000;
-    gasTankPortSize = 5;
-    distanceToCoal = 5;
-    currentTemperature = 0.0f;
-}
+GasGrill::GasGrill() :
+    grillPlateSize (50),
+    volumeOfCoal (5),
+    numLevelPositions (3),
+    heatTemperature (1000),
+    gasTankPortSize (5),
+    distanceToCoal (5),
+    currentTemperature (0.0f)
+{}
 
 
 void GasGrill::grillSausage(int levelPosition)
@@ -305,6 +324,15 @@ void GasGrill::turnOffFlame()
 {
     std::cout << "Status: No flame" << std::endl;
     currentTemperature = 0.0f;
+}
+
+
+void GasGrill::printImportantInfos()
+{
+    std::cout << "GasGrill Info" << std::endl << "-------------------------------" << std::endl;
+    std::cout << "grillPlateSize: " << grillPlateSize << std::endl;
+    std::cout << "volumeOfCoal: " << volumeOfCoal << std::endl;
+    std::cout << "numLevelPositions" << numLevelPositions << std::endl;
 }
 
 
@@ -344,6 +372,7 @@ struct Display
     void displayText(std::string text);
     void displayImage(std::string imageFileURL);
     char getActivePort(); 
+    void printInfo();
 
     DisplayCable myCable;
 };
@@ -410,6 +439,13 @@ char Display::getActivePort()
     return activePort;
 } 
 
+
+void Display::printInfo()
+{
+    std::cout << "Color Depth: " << colorDepth << std::endl;
+    std::cout << "Pixel Width: " << pixelWidth << std::endl;
+    std::cout << "Pixel Height: " << pixelHeight << std::endl;
+}
 
 //--------------------------------------------------------
 // Drumpad
@@ -720,6 +756,11 @@ int main()
     if(myDrillSuperMaschine.myDrillBit.isToHot(1000))
         std::cout << "The bit is to hot" << std::endl;;
 
+    myDrillSuperMaschine.printMachineProperties();
+
+    DrillMachine::DrillBit bit;
+    bit.printStatus();
+
     // SodaMaker
 
     SodaMaker sodaMachine;
@@ -738,6 +779,8 @@ int main()
         std::cout << "Wash and dry process sucessfull!" << std::endl;
     }
 
+    firstDishWasher.printMaxDishElements();
+
     // GasGrill
 
     GasGrill propanGrill;
@@ -746,6 +789,9 @@ int main()
     propanGrill.currentTemperature = 302.2f;
 
     propanGrill.turnOffFlame();
+
+    propanGrill.printImportantInfos();
+    
     
     // Display
 
@@ -753,6 +799,9 @@ int main()
     d.currentText = "Hello world!";
     if(d.activePort == 'b')
         std::cout << "Used port " << d.activePort << std::endl;
+
+    d.printInfo();
+
 
     // Drumpad
 
