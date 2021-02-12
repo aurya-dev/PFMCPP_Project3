@@ -253,8 +253,14 @@ std::string SodaMaker::getManufacturerName()
 // DishWasher
 //--------------------------------------------------------
 
- struct DishWasher
- {
+struct DishWashingProcess
+{
+    int errorAtMinute;
+    DishWashingProcess(int m) : errorAtMinute(m) {} 
+};
+
+struct DishWasher
+{
     float washingRoomVolume {5.2f};
     int numOfPrograms {12};
     int maxWashingDuration {120};
@@ -267,8 +273,10 @@ std::string SodaMaker::getManufacturerName()
     bool washDishes(int programNumber);
     bool dryDishes(int duration, float temperature);
     void startAtTimer(int startMinutesLater); 
-    float printMaxDishElements();  
- };
+    float printMaxDishElements(); 
+    DishWashingProcess checkErrors(int errorTime);
+
+};
 
 
 DishWasher::DishWasher() {}
@@ -300,6 +308,22 @@ float DishWasher::printMaxDishElements()
     return maxDishElements;
 }
 
+
+DishWashingProcess DishWasher::checkErrors(int errorTime)
+{
+    DishWashingProcess process(false);
+    int timeMarker{0};
+    while (timeMarker < maxWashingDuration)
+    {
+        if(errorTime == timeMarker) {
+            process.errorAtMinute = errorTime;
+            return process;
+        }  
+        timeMarker += 1;
+    }
+
+    return process;
+}
 
 
 //--------------------------------------------------------
@@ -698,6 +722,13 @@ void RecordButton::recMidiEvents(int midiPort, int midiChannel)
 // DrumMachine
 //--------------------------------------------------------
 
+struct Pattern
+{
+    int playHeadPos;
+    Pattern( int pos ) : playHeadPos( pos ) {}
+};
+
+
 struct DrumMachine
 {
     Display display;
@@ -711,6 +742,7 @@ struct DrumMachine
     std::string getPatternName (int patternId);
     void playPattern(int patternId);
     void recPattern(int patternLength = 4);
+    Pattern checkPatternPos(int pos, int start, int end);
 };
 
 
@@ -755,6 +787,23 @@ void DrumMachine::recPattern(int patternLength)
     if(patternLength > 0)
         std::cout << "Pattern recording with pattern length " << patternLength << std::endl;
 }
+
+
+Pattern DrumMachine::checkPatternPos(int pos, int start, int end)
+{
+    Pattern ptrn(0);
+
+    for(int s = start; s <= end; s++)
+    {
+        if(pos == s) {
+            ptrn.playHeadPos = pos;
+            return ptrn;
+        }
+    }
+
+    return ptrn;
+}
+
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
@@ -810,6 +859,13 @@ int main()
     }
 
     firstDishWasher.printMaxDishElements();
+
+    DishWashingProcess process = firstDishWasher.checkErrors(400);
+    if(process.errorAtMinute)
+        std::cout << "Error on minute " << process.errorAtMinute << std::endl;
+    else
+        std::cout << "No errors in the maximal washing duration" << std::endl;
+
 
     // GasGrill
 
@@ -878,6 +934,13 @@ int main()
         drumMachine.volControl.decreaseMasterVolume(80);
         std::cout << "Current volume is " << drumMachine.volControl.currentVol << std::endl;
     }
+
+    int pos{16}, start{4}, end{8};
+    auto ptrn = drumMachine.checkPatternPos(pos, start, end);
+    if(ptrn.playHeadPos) 
+        std::cout << "In range from pos " << start << " to " << end << " the playhead of the pattern is at " << ptrn.playHeadPos << std::endl;
+    else
+        std::cout << "In range from pos " << start << " to " << end << " playhead position " << pos << " doesn't exsists" << std::endl;
         
 
     std::cout << "good to go!" << std::endl;
