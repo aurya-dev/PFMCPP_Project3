@@ -315,13 +315,16 @@ DishWashingProcess DishWasher::checkErrors(int errorTime)
     int timeMarker{0};
     while (timeMarker < maxWashingDuration)
     {
-        if(errorTime == timeMarker) {
+        if(errorTime == timeMarker) 
+        {
+            std::cout << "TimeMarker " << timeMarker << " checked - Error found!!!" << std::endl;
             process.errorAtMinute = errorTime;
             return process;
         }  
+        std::cout << "TimeMarker " << timeMarker << " checked - No error" << std::endl;
         timeMarker += 1;
     }
-
+    std::cout << "Test completed - No error :)" << std::endl;
     return process;
 }
 
@@ -793,13 +796,18 @@ Pattern DrumMachine::checkPatternPos(int pos, int start, int end)
 {
     Pattern ptrn(0);
 
+    std::cout << "Start at pos " << start << "..." << std::endl;
     for(int s = start; s <= end; s++)
     {
-        if(pos == s) {
+        if(pos == s) 
+        {
+            std::cout << "PlayHead at " << pos << std::endl;
             ptrn.playHeadPos = pos;
             return ptrn;
         }
+        std::cout << "At pos " << s << " no PlayHead found" << std::endl;
     }
+    std::cout << "PlayHead didn't found  :(" << std::endl;
 
     return ptrn;
 }
